@@ -1,1 +1,76 @@
+---
+title: "Lab6"
+author: "Nehir Arpat"
+date: "2024-10-10"
+output: "github_document"
+---
+
+# Load Packages
+```{r}
+library(haven)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(psych)
+library(bruceR)
+library(ggsci)
+library(see)
+library(car)
+library(readr)
+
+```
+
+# Load Datasets
+```{r}
+
+dataset <- read_csv("~/Documents/GitHub/Research/Data file Einstein.csv")
+
+```
+
+# Unnecessary Data
+```{r}
+
+# Deleting Origin data
+dataset <- dataset %>% select(-Origin_0)
+
+# I don't need the origins of participants and because most are Australian, it is marked NA. 
+# I can't perform listwise deletion otherwise.
+
+```
+
+# Missing Data
+```{r}
+
+#Listwise deletion
+list_dataset<- drop_na(dataset)
+
+#pair wise deletion will only be used when you run the actual analysis using "na.rm = TRUE"
+
+```
+
+# Normality
+```{r}
+
+ggplot(list_dataset, aes(x = FoMO_Total)) + geom_histogram(binwidth = 2) + theme_classic()
+
+ggplot(list_dataset, aes(x = FoMO_Total)) + geom_density(adjust = 2)  + theme_classic()
+
+qq<-ggplot(list_dataset, aes(sample = FoMO_Total)) + geom_qq()  + theme_classic()
+
+qq+ geom_qq_line()
+
+
+#functions below are base R functions, they can do the job, but not as customizable as ggplot
+
+hist(list_dataset$FoMO_Total)
+
+qqnorm(list_dataset$FoMO_Total, col = "steelblue", lwd = 2)
+
+plot(density(list_dataset$FoMO_Total, na.rm = TRUE, bw = 90),  lwd=2, main = "")
+
+describe(list_dataset$FoMO_Total)
+
+shapiro.test(list_dataset$FoMO_Total)
+
+```
 
