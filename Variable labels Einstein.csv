@@ -1,0 +1,87 @@
+﻿Variable Name,Description
+Number_Order,Number Order
+RecordedDate_0,Recorded Date
+Age,Age
+Gender_0,"Please select your gender. (1 = Male, 2 = Female)"
+Australian_0,"Were you born in Australia? (1 = Yes, 2 = No)"
+Origin_0,"If not born in Australia, which country were you born in?"
+SCAS_1_0,"1. I worry about things (0 = Never, 1 = Sometimes, 2 = Often, 3 = Always)"
+SCAS_2_0,"2. I am scared of the dark (0 = Never, 1 = Sometimes, 2 = Often, 3 = Always)"
+SCAS_3_0,"3. When I have a problem, I get a funny feeling in my stomach (0 = Never, 1 = Sometimes, 2 = Often, 3 = Always)"
+SCAS_4_0,"4. I feel afraid (0 = Never, 1 = Sometimes, 2 = Often, 3 = Always)"
+SCAS_5_0,"5. I would feel afraid of being on my own at home (0 = Never, 1 = Sometimes, 2 = Often, 3 = Always)"
+SCAS_6_0,"6. I feel scared when I have to take a test (0 = Never, 1 = Sometimes, 2 = Often, 3 = Always)"
+SCAS_7_0,"7. I feel afraid if I have to use public toilets or bathrooms (0 = Never, 1 = Sometimes, 2 = Often, 3 = Always)"
+SCAS_8_0,"8. I worry about being away from my parents (0 = Never, 1 = Sometimes, 2 = Often, 3 = Always)"
+SCAS_9_0,"9. I feel afraid that I will make a fool of myself in front of people (0 = Never, 1 = Sometimes, 2 = Often, 3 = Always)"
+SCAS_10_0,"10. I worry that I will do badly at my school work (0 = Never, 1 = Sometimes, 2 = Often, 3 = Always)"
+SCAS_11_0,"11. I am popular amongst other kids my own age (0 = Never, 1 = Sometimes, 2 = Often, 3 = Always)"
+SCAS_12_0,"12. I worry that something awful will happen to someone in my family (0 = Never, 1 = Sometimes, 2 = Often, 3 = Always)"
+SCAS_13_0,"13. I suddenly feel as if I can’t breathe when there is no reason for this (0 = Never, 1 = Sometimes, 2 = Often, 3 = Always)"
+SCAS_14_0,"14. I have to keep checking that I have done things right (like the switch is off, or the door is locked) (0 = Never, 1 = Sometimes, 2 = Often, 3 = Always)"
+SCAS_15_0,"15. I feel scared if I have to sleep on my own (0 = Never, 1 = Sometimes, 2 = Often, 3 = Always)"
+SCAS_16_0,"16. I have trouble going to school in the mornings because I feel nervous or afraid (0 = Never, 1 = Sometimes, 2 = Often, 3 = Always)"
+SCAS_17_0,"17. I am good at sports (0 = Never, 1 = Sometimes, 2 = Often, 3 = Always)"
+SCAS_18_0,"18. I am scared of dogs (0 = Never, 1 = Sometimes, 2 = Often, 3 = Always)"
+SCAS_19_0,"19. I can’t seem to get bad or silly thoughts out of my head (0 = Never, 1 = Sometimes, 2 = Often, 3 = Always)"
+SCAS_20_0,"20. When I have a problem, my heart beats really fast (0 = Never, 1 = Sometimes, 2 = Often, 3 = Always)"
+SCAS_21_0,"21. I suddenly start to tremble or shake when there is no reason for this (0 = Never, 1 = Sometimes, 2 = Often, 3 = Always)"
+SCAS_22_0,"22. I worry that something bad will happen to me (0 = Never, 1 = Sometimes, 2 = Often, 3 = Always)"
+SCAS_23_0,"23. I am scared of going to the doctor or dentist (0 = Never, 1 = Sometimes, 2 = Often, 3 = Always)"
+SCAS_24_0,"24. When I have a problem, I feel shaky (0 = Never, 1 = Sometimes, 2 = Often, 3 = Always)"
+SCAS_25_0,"25. I am scared of being in high places or lifts (elevators) (0 = Never, 1 = Sometimes, 2 = Often, 3 = Always)"
+SCAS_26_0,"26. I am a good person (0 = Never, 1 = Sometimes, 2 = Often, 3 = Always)"
+SCAS_27_0,"27. I have to think of special thoughts to stop bad things from happening (like numbers or words) (0 = Never, 1 = Sometimes, 2 = Often, 3 = Always)"
+SCAS_28_0,"28. I feel scared if I have to travel in the car, or on a bus or train (0 = Never, 1 = Sometimes, 2 = Often, 3 = Always)"
+SCAS_29_0,"29. I worry about what other people think of me (0 = Never, 1 = Sometimes, 2 = Often, 3 = Always)"
+SCAS_30_0,"30. I am afraid of being in crowded places (like shopping centres, the movies, buses, busy playgrounds) (0 = Never, 1 = Sometimes, 2 = Often, 3 = Always)"
+SCAS_31_0,"31. I feel happy (0 = Never, 1 = Sometimes, 2 = Often, 3 = Always)"
+SCAS_32_0,"32. All of a sudden I feel really scared for no reason at all (0 = Never, 1 = Sometimes, 2 = Often, 3 = Always)"
+SCAS_33_0,"33. I am scared of insects or spiders (0 = Never, 1 = Sometimes, 2 = Often, 3 = Always)"
+SCAS_34_0,"34. I suddenly become dizzy or faint when there’s no reason for this (0 = Never, 1 = Sometimes, 2 = Often, 3 = Always)"
+SCAS_35_0,"35. I feel afraid if I have to talk in front of my class (0 = Never, 1 = Sometimes, 2 = Often, 3 = Always)"
+SCAS_36_0,"36. My heart suddenly starts to beat too quickly for no reason (0 = Never, 1 = Sometimes, 2 = Often, 3 = Always)"
+SCAS_37_0,"37. I worry that I will suddenly get a scared feeling when there is nothing to be afraid of (0 = Never, 1 = Sometimes, 2 = Often, 3 = Always)"
+SCAS_38_0,"38. I like myself (0 = Never, 1 = Sometimes, 2 = Often, 3 = Always)"
+SCAS_39_0,"39. I am afraid of being in small closed places, like tunnels or small rooms (0 = Never, 1 = Sometimes, 2 = Often, 3 = Always)"
+SCAS_40_0,"40. I have to do some things over and over again (like washing my hands, cleaning or putting things in a certain order) (0 = Never, 1 = Sometimes, 2 = Often, 3 = Always)"
+SCAS_41_0,"41. I get bothered by bad or silly thoughts or pictures in my mind (0 = Never, 1 = Sometimes, 2 = Often, 3 = Always)"
+SCAS_42_0,"42. I have to do some things in just the right way to stop bad things happening (0 = Never, 1 = Sometimes, 2 = Often, 3 = Always)"
+SCAS_43_0,"43. I am proud of my school work (0 = Never, 1 = Sometimes, 2 = Often, 3 = Always)"
+SCAS_44_0,"44. I would feel scared if I had to stay away from home overnight (0 = Never, 1 = Sometimes, 2 = Often, 3 = Always)"
+SCAS_TOTAL_0,SCAS Total
+SCAS_SEP_0,Separation Anxiety
+SCAS_SA_0,Social Anxiety
+SCAS_OCD_0,OCD
+SCAS_PAN_0,Panic Agraphobia
+SCAS_PHY_0,Physical Injury Fears
+SCAS_GAD_0,Generalized Anxiety
+SM_0,"How often do you use social media? ( 1 = Constantly, 2 = More than 10 times a day, 3 = About 5-10 times per day, 4 = About 1-4 times per day, 5 = Several times a week, 6 = Once a week or less)"
+SM_0Reversed,"Frequency SM Use (1 = Once a week or less, 2 = Several times a week, 3 = About 1-4 times per day, 4 = About 5-10 times per day,  5 = More than 10 times a day,  6 = Constantly)"
+FoMO_1_0,"When I have a good time it is important for me to share the details online. (1= Never true, 2 = Rarely true, 3 = Sometimes true, 4 = True fairly often, 5 = True all the time)"
+FoMO_2_0,"I am afraid that I will miss out on something if I don't stay connected to my online social networks. (1= Never true, 2 = Rarely true, 3 = Sometimes true, 4 = True fairly often, 5 = True all the time)"
+FoMO_3_0,"I feel worried and uncomfortable when I can't access my social media accounts (1= Never true, 2 = Rarely true, 3 = Sometimes true, 4 = True fairly often, 5 = True all the time)"
+FoMO_4_0,"I find it difficult to relax or sleep after spending time on social networking sites (1= Never true, 2 = Rarely true, 3 = Sometimes true, 4 = True fairly often, 5 = True all the time)"
+FoMO_5_0,"I feel my brain 'burnout' with the constant connectivity of social media (1= Never true, 2 = Rarely true, 3 = Sometimes true, 4 = True fairly often, 5 = True all the time)"
+FoMO_Total,FoMO
+SCS_1_0,"1. When I fail at something important to me I become consumed by feelings of inadequacy. (1= Almost never, 2 = Rarely, 3 = Sometimes, 4 = Often, 5 = Almost always)"
+SCS_2_0,"2. I try to be understanding and patient towards those aspects of my personality I don’t like. (1= Almost never, 2 = Rarely, 3 = Sometimes, 4 = Often, 5 = Almost always)"
+SCS_3_0,"3. When something painful happens I try to take a balanced view of the situation. (1= Almost never, 2 = Rarely, 3 = Sometimes, 4 = Often, 5 = Almost always)"
+SCS_4_0,"4. When I’m feeling down, I tend to feel like most other people are probably happier than I am. (1= Almost never, 2 = Rarely, 3 = Sometimes, 4 = Often, 5 = Almost always)"
+SCS_5_0,"5. I try to see my failings as part of the human condition. (1= Almost never, 2 = Rarely, 3 = Sometimes, 4 = Often, 5 = Almost always)"
+SCS_6_0,"6. When I’m going through a very hard time, I give myself the caring and tenderness I need. (1= Almost never, 2 = Rarely, 3 = Sometimes, 4 = Often, 5 = Almost always)"
+SCS_7_0,"7. When something upsets me I try to keep my emotions in balance. (1= Almost never, 2 = Rarely, 3 = Sometimes, 4 = Often, 5 = Almost always)"
+SCS_8_0,"8. When I fail at something that’s important to me, I tend to feel alone in my failure (1= Almost never, 2 = Rarely, 3 = Sometimes, 4 = Often, 5 = Almost always)"
+SCS_9_0,"9. When I’m feeling down I tend to obsess and fixate on everything that’s wrong. (1= Almost never, 2 = Rarely, 3 = Sometimes, 4 = Often, 5 = Almost always)"
+SCS_10_0,"10. When I feel inadequate in some way, I try to remind myself that feelings of inadequacy are shared by most people. (1= Almost never, 2 = Rarely, 3 = Sometimes, 4 = Often, 5 = Almost always)"
+SCS_11_0,"11. I’m disapproving and judgmental about my own flaws and inadequacies. (1= Almost never, 2 = Rarely, 3 = Sometimes, 4 = Often, 5 = Almost always)"
+SCS_12_0,"12. I’m intolerant and impatient towards those aspects of my personality I don’t like. (1= Almost never, 2 = Rarely, 3 = Sometimes, 4 = Often, 5 = Almost always)"
+SCS_1Reversed_0,SCS Item 1 reverse scored
+SCS_4Reversed_0,SCS Item 4 reverse scored
+SCS_8Reversed_0,SCS Item 8 reverse scored
+SCS_9Reversed_0,SCS Item 9 reverse scored
+SCS_11Reversed_0,SCS Item 11 reverse scored
+SCS_12Reversed_0,SCS Item 12 reverse scored
+SCS_Total_0,Self-Compassion Scale short form Total Score
+SCS_SelfCriticism,SCS Self-Criticism subscale total
+SCS_SelfCompassion,SCS Self-Compassion subscale total
