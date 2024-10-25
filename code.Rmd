@@ -17,7 +17,10 @@ library(ggsci)
 library(see)
 library(car)
 library(readr)
-
+library(ggstatsplot)
+library(performance)
+library(sjPlot)
+library(emmeans)
 ```
 
 # Load Datasets
@@ -48,29 +51,78 @@ list_dataset<- drop_na(dataset)
 
 ```
 
-# Normality
+# Get Summary Descriptive Statistics
+```{r}
+list_dataset %>% 
+  group_by(Gender_0) %>%
+  dplyr::summarize(mean_SCAS    = mean(SCAS_TOTAL_0),
+      mean_SCS    = mean(SCS_Total_0),
+      std_dev_SCAS = sd(SCAS_TOTAL_0),
+      std_dev_SCs = sd(SCS_Total_0),
+      corr_SCAS_  = cor(SCAS_TOTAL_0, SCS_Total_0)
+    )
+
+```
+
+
+# Normality for Anxiety Scores
 ```{r}
 
-ggplot(list_dataset, aes(x = FoMO_Total)) + geom_histogram(binwidth = 2) + theme_classic()
+ggplot(list_dataset, aes(x = SCAS_TOTAL_0)) + geom_histogram(binwidth = 2) + theme_classic()
 
-ggplot(list_dataset, aes(x = FoMO_Total)) + geom_density(adjust = 2)  + theme_classic()
+ggplot(list_dataset, aes(x = SCAS_TOTAL_0)) + geom_density(adjust = 2)  + theme_classic()
 
-qq<-ggplot(list_dataset, aes(sample = FoMO_Total)) + geom_qq()  + theme_classic()
+qq<-ggplot(list_dataset, aes(sample = SCAS_TOTAL_0)) + geom_qq()  + theme_classic()
 
 qq+ geom_qq_line()
 
 
 #functions below are base R functions, they can do the job, but not as customizable as ggplot
 
-hist(list_dataset$FoMO_Total)
+hist(list_dataset$SCAS_TOTAL_0)
 
-qqnorm(list_dataset$FoMO_Total, col = "steelblue", lwd = 2)
+qqnorm(list_dataset$SCAS_TOTAL_0, col = "steelblue", lwd = 2)
 
-plot(density(list_dataset$FoMO_Total, na.rm = TRUE, bw = 90),  lwd=2, main = "")
+plot(density(list_dataset$SCAS_TOTAL_0, na.rm = TRUE, bw = 90),  lwd=2, main = "")
 
-describe(list_dataset$FoMO_Total)
+describe(list_dataset$SCAS_TOTAL_0)
 
-shapiro.test(list_dataset$FoMO_Total)
+shapiro.test(list_dataset$SCAS_TOTAL_0)
 
+```
+# Normality for Self-Compassion Scores
+```{r}
+
+ggplot(list_dataset, aes(x = SCS_Total_0)) + geom_histogram(binwidth = 2) + theme_classic()
+
+ggplot(list_dataset, aes(x = SCS_Total_0)) + geom_density(adjust = 2)  + theme_classic()
+
+qq<-ggplot(list_dataset, aes(sample = SCS_Total_0)) + geom_qq()  + theme_classic()
+
+qq+ geom_qq_line()
+
+
+#functions below are base R functions, they can do the job, but not as customizable as ggplot
+
+hist(list_dataset$SCS_Total_0)
+
+qqnorm(list_dataset$SCS_Total_0, col = "steelblue", lwd = 2)
+
+plot(density(list_dataset$SCS_Total_0, na.rm = TRUE, bw = 90),  lwd=2, main = "")
+
+describe(list_dataset$SCS_Total_0)
+
+shapiro.test(list_dataset$SCS_Total_0)
+
+```
+
+#Regression
+```{r}
+model <- lm(SCAS_TOTAL_0 ~ Gender_0 + SCS_Total_0, data = list_dataset)
+check_model(model)
+model_summary(model)
+tab_model(model)
+
+plot_model(model,  type ="est",  show.values = TRUE, vline.color = "#1B191999", line.size = 1.5, dot.size = 2.5, colors = "blue") + theme_bruce()
 ```
 
