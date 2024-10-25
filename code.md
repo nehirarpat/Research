@@ -107,11 +107,6 @@ library(ggstatsplot)
 ``` r
 library(performance)
 library(sjPlot)
-```
-
-    ## Learn more about sjPlot with 'browseVignettes("sjPlot")'.
-
-``` r
 library(emmeans)
 ```
 
@@ -230,7 +225,7 @@ shapiro.test(list_dataset$SCAS_TOTAL_0)
 # Normality for Self-Compassion Scores
 
 ``` r
-ggplot(list_dataset, aes(x = SCS_Total_0)) + geom_histogram(binwidth = 2) + theme_classic()
+ggplot(list_dataset, aes(x = SCS_Total_0)) + geom_histogram(binwidth = .8) + theme_classic()
 ```
 
 ![](code_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->

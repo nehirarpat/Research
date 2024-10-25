@@ -93,7 +93,7 @@ shapiro.test(list_dataset$SCAS_TOTAL_0)
 # Normality for Self-Compassion Scores
 ```{r}
 
-ggplot(list_dataset, aes(x = SCS_Total_0)) + geom_histogram(binwidth = 2) + theme_classic()
+ggplot(list_dataset, aes(x = SCS_Total_0)) + geom_histogram(binwidth = .8) + theme_classic()
 
 ggplot(list_dataset, aes(x = SCS_Total_0)) + geom_density(adjust = 2)  + theme_classic()
 
