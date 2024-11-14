@@ -107,6 +107,11 @@ library(ggstatsplot)
 ``` r
 library(performance)
 library(sjPlot)
+```
+
+    ## Install package "strengejacke" from GitHub (`devtools::install_github("strengejacke/strengejacke")`) to load all sj-packages at once!
+
+``` r
 library(emmeans)
 ```
 
@@ -281,7 +286,7 @@ shapiro.test(list_dataset$SCS_Total_0)
     ## data:  list_dataset$SCS_Total_0
     ## W = 0.98961, p-value = 4.447e-06
 
-\#Regression
+\#Regression for Gender
 
 ``` r
 model <- lm(SCAS_TOTAL_0 ~ Gender_0 + SCS_Total_0, data = list_dataset)
@@ -413,3 +418,181 @@ plot_model(model,  type ="est",  show.values = TRUE, vline.color = "#1B191999", 
 ```
 
 ![](code_files/figure-gfm/unnamed-chunk-8-2.png)<!-- -->
+
+# I decided to use a subscale rather than the whole scale. I will fix the other parts accordingly later on bc I have to submit this by tonight.
+
+\#Reliability for Generalized Anxiety Subscale
+
+``` r
+bruceR::Alpha(list_dataset, vars=c("SCAS_1_0", "SCAS_3_0", "SCAS_4_0", "SCAS_20_0", "SCAS_22_0", "SCAS_24_0"))
+```
+
+    ## 
+    ## Reliability Analysis
+    ## 
+    ## Summary:
+    ## Total Items: 6
+    ## Scale Range: 0 ~ 3
+    ## Total Cases: 916
+    ## Valid Cases: 916 (100.0%)
+    ## 
+    ## Scale Statistics:
+    ## Mean = 1.139
+    ## S.D. = 0.631
+    ## Cronbach’s α = 0.834
+    ## McDonald’s ω = 0.837
+    ## 
+    ## Item Statistics (Cronbach’s α If Item Deleted):
+    ## ────────────────────────────────────────────────────
+    ##             Mean    S.D. Item-Rest Cor. Cronbach’s α
+    ## ────────────────────────────────────────────────────
+    ## SCAS_1_0   1.716 (0.785)          0.626        0.804
+    ## SCAS_3_0   1.231 (0.952)          0.606        0.809
+    ## SCAS_4_0   0.934 (0.692)          0.606        0.810
+    ## SCAS_20_0  1.229 (0.927)          0.658        0.796
+    ## SCAS_22_0  0.967 (0.868)          0.570        0.815
+    ## SCAS_24_0  0.757 (0.869)          0.601        0.808
+    ## ────────────────────────────────────────────────────
+    ## Item-Rest Cor. = Corrected Item-Total Correlation
+
+\#Reliability for Self-Compassion Subscale
+
+``` r
+bruceR::Alpha(list_dataset, vars=c("SCS_2_0", "SCS_3_0", "SCS_5_0", "SCS_6_0", 
+  "SCS_7_0", "SCS_10_0"))
+```
+
+    ## 
+    ## Reliability Analysis
+    ## 
+    ## Summary:
+    ## Total Items: 6
+    ## Scale Range: 1 ~ 5
+    ## Total Cases: 916
+    ## Valid Cases: 916 (100.0%)
+    ## 
+    ## Scale Statistics:
+    ## Mean = 2.859
+    ## S.D. = 0.813
+    ## Cronbach’s α = 0.816
+    ## McDonald’s ω = 0.817
+    ## 
+    ## Item Statistics (Cronbach’s α If Item Deleted):
+    ## ───────────────────────────────────────────────────
+    ##            Mean    S.D. Item-Rest Cor. Cronbach’s α
+    ## ───────────────────────────────────────────────────
+    ## SCS_2_0   2.925 (1.098)          0.566        0.789
+    ## SCS_3_0   2.907 (1.084)          0.626        0.777
+    ## SCS_5_0   2.769 (1.187)          0.555        0.792
+    ## SCS_6_0   2.772 (1.133)          0.553        0.792
+    ## SCS_7_0   3.202 (1.158)          0.620        0.777
+    ## SCS_10_0  2.578 (1.095)          0.553        0.792
+    ## ───────────────────────────────────────────────────
+    ## Item-Rest Cor. = Corrected Item-Total Correlation
+
+# Exploratory Factor Analysis for Generalized Anxiety Subscale
+
+``` r
+#In factor analysis, using reverse scored items or not does not make a difference in interpretation. If you use unrecoded items, it will just make the loadings negative
+
+EFA(list_dataset, vars=c("SCAS_1_0", "SCAS_3_0", "SCAS_4_0", "SCAS_20_0", "SCAS_22_0", "SCAS_24_0"), method = "pa", plot.scree = TRUE, nfactors = c("parallel"))
+```
+
+    ## 
+    ## Explanatory Factor Analysis
+    ## 
+    ## Summary:
+    ## Total Items: 6
+    ## Scale Range: 0 ~ 3
+    ## Total Cases: 916
+    ## Valid Cases: 916 (100.0%)
+    ## 
+    ## Extraction Method:
+    ## - Principal Axis Factor Analysis
+    ## Rotation Method:
+    ## - (Only one component was extracted. The solution was not rotated.)
+    ## 
+    ## KMO and Bartlett's Test:
+    ## - Kaiser-Meyer-Olkin (KMO) Measure of Sampling Adequacy: MSA = 0.863
+    ## - Bartlett's Test of Sphericity: Approx. χ²(15) = 1825.82, p < 1e-99 ***
+    ## 
+    ## Total Variance Explained:
+    ## ───────────────────────────────────────────────────────────────────────────────
+    ##           Eigenvalue Variance % Cumulative % SS Loading Variance % Cumulative %
+    ## ───────────────────────────────────────────────────────────────────────────────
+    ## Factor 1       3.308     55.129       55.129      2.772     46.207       46.207
+    ## Factor 2       0.730     12.172       67.301                                   
+    ## Factor 3       0.582      9.700       77.001                                   
+    ## Factor 4       0.520      8.675       85.676                                   
+    ## Factor 5       0.435      7.251       92.926                                   
+    ## Factor 6       0.424      7.074      100.000                                   
+    ## ───────────────────────────────────────────────────────────────────────────────
+    ## 
+    ## Factor Loadings (Sorted by Size):
+    ## ────────────────────────────
+    ##              PA1 Communality
+    ## ────────────────────────────
+    ## SCAS_20_0  0.730       0.533
+    ## SCAS_1_0   0.696       0.485
+    ## SCAS_3_0   0.675       0.455
+    ## SCAS_4_0   0.672       0.451
+    ## SCAS_24_0  0.662       0.438
+    ## SCAS_22_0  0.640       0.410
+    ## ────────────────────────────
+    ## Communality = Sum of Squared (SS) Factor Loadings
+    ## (Uniqueness = 1 - Communality)
+
+![](code_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
+
+# Exploratory Factor Analysis for Self-Compassion Subscale
+
+``` r
+EFA(list_dataset, vars=c("SCS_2_0", "SCS_3_0", "SCS_5_0", "SCS_6_0", 
+  "SCS_7_0", "SCS_10_0"), method = "pa", plot.scree = TRUE, nfactors = c("parallel"))
+```
+
+    ## 
+    ## Explanatory Factor Analysis
+    ## 
+    ## Summary:
+    ## Total Items: 6
+    ## Scale Range: 1 ~ 5
+    ## Total Cases: 916
+    ## Valid Cases: 916 (100.0%)
+    ## 
+    ## Extraction Method:
+    ## - Principal Axis Factor Analysis
+    ## Rotation Method:
+    ## - (Only one component was extracted. The solution was not rotated.)
+    ## 
+    ## KMO and Bartlett's Test:
+    ## - Kaiser-Meyer-Olkin (KMO) Measure of Sampling Adequacy: MSA = 0.827
+    ## - Bartlett's Test of Sphericity: Approx. χ²(15) = 1666.16, p < 1e-99 ***
+    ## 
+    ## Total Variance Explained:
+    ## ───────────────────────────────────────────────────────────────────────────────
+    ##           Eigenvalue Variance % Cumulative % SS Loading Variance % Cumulative %
+    ## ───────────────────────────────────────────────────────────────────────────────
+    ## Factor 1       3.131     52.190       52.190      2.565     42.749       42.749
+    ## Factor 2       0.809     13.479       65.669                                   
+    ## Factor 3       0.697     11.623       77.291                                   
+    ## Factor 4       0.523      8.713       86.004                                   
+    ## Factor 5       0.464      7.734       93.738                                   
+    ## Factor 6       0.376      6.262      100.000                                   
+    ## ───────────────────────────────────────────────────────────────────────────────
+    ## 
+    ## Factor Loadings (Sorted by Size):
+    ## ───────────────────────────
+    ##             PA1 Communality
+    ## ───────────────────────────
+    ## SCS_3_0   0.716       0.513
+    ## SCS_7_0   0.705       0.497
+    ## SCS_2_0   0.646       0.417
+    ## SCS_6_0   0.617       0.380
+    ## SCS_5_0   0.616       0.380
+    ## SCS_10_0  0.615       0.378
+    ## ───────────────────────────
+    ## Communality = Sum of Squared (SS) Factor Loadings
+    ## (Uniqueness = 1 - Communality)
+
+![](code_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->

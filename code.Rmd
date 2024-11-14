@@ -113,10 +113,9 @@ plot(density(list_dataset$SCS_Total_0, na.rm = TRUE, bw = 90),  lwd=2, main = ""
 describe(list_dataset$SCS_Total_0)
 
 shapiro.test(list_dataset$SCS_Total_0)
-
 ```
 
-#Regression
+#Regression for Gender 
 ```{r}
 model <- lm(SCAS_TOTAL_0 ~ Gender_0 + SCS_Total_0, data = list_dataset)
 check_model(model)
@@ -124,5 +123,33 @@ model_summary(model)
 tab_model(model)
 
 plot_model(model,  type ="est",  show.values = TRUE, vline.color = "#1B191999", line.size = 1.5, dot.size = 2.5, colors = "blue") + theme_bruce()
+```
+
+# I decided to use a subscale rather than the whole scale. I will fix the other parts accordingly later on bc I have to submit this by tonight.
+
+#Reliability for Generalized Anxiety Subscale
+```{r}
+
+bruceR::Alpha(list_dataset, vars=c("SCAS_1_0", "SCAS_3_0", "SCAS_4_0", "SCAS_20_0", "SCAS_22_0", "SCAS_24_0"))
+```
+
+#Reliability for Self-Compassion Subscale
+```{r}
+bruceR::Alpha(list_dataset, vars=c("SCS_2_0", "SCS_3_0", "SCS_5_0", "SCS_6_0", 
+  "SCS_7_0", "SCS_10_0"))
+```
+
+# Exploratory Factor Analysis for Generalized Anxiety Subscale
+```{r}
+#In factor analysis, using reverse scored items or not does not make a difference in interpretation. If you use unrecoded items, it will just make the loadings negative
+
+EFA(list_dataset, vars=c("SCAS_1_0", "SCAS_3_0", "SCAS_4_0", "SCAS_20_0", "SCAS_22_0", "SCAS_24_0"), method = "pa", plot.scree = TRUE, nfactors = c("parallel"))
+```
+
+
+# Exploratory Factor Analysis for Self-Compassion Subscale
+```{r}
+EFA(list_dataset, vars=c("SCS_2_0", "SCS_3_0", "SCS_5_0", "SCS_6_0", 
+  "SCS_7_0", "SCS_10_0"), method = "pa", plot.scree = TRUE, nfactors = c("parallel"))
 ```
 
