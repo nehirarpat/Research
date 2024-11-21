@@ -21,6 +21,7 @@ library(ggstatsplot)
 library(performance)
 library(sjPlot)
 library(emmeans)
+library(psych)
 ```
 
 # Load Datasets
@@ -55,11 +56,11 @@ list_dataset<- drop_na(dataset)
 ```{r}
 list_dataset %>% 
   group_by(Gender_0) %>%
-  dplyr::summarize(mean_SCAS    = mean(SCAS_TOTAL_0),
-      mean_SCS    = mean(SCS_Total_0),
-      std_dev_SCAS = sd(SCAS_TOTAL_0),
-      std_dev_SCs = sd(SCS_Total_0),
-      corr_SCAS_  = cor(SCAS_TOTAL_0, SCS_Total_0)
+  dplyr::summarize(mean_SCAS_GAD_0    = mean(SCAS_GAD_0),
+      mean_SCS    = mean(SCS_SelfCompassion),
+      std_dev_SCAS_GAD_0 = sd(SCAS_GAD_0),
+      std_dev_SelfCompassion = sd(SCS_SelfCompassion),
+      corr_SCAS_  = cor(SCAS_GAD_0, SCS_SelfCompassion)
     )
 
 ```
@@ -68,64 +69,82 @@ list_dataset %>%
 # Normality for Anxiety Scores
 ```{r}
 
-ggplot(list_dataset, aes(x = SCAS_TOTAL_0)) + geom_histogram(binwidth = 2) + theme_classic()
+ggplot(list_dataset, aes(x = SCAS_GAD_0)) + geom_histogram(binwidth = 2) + theme_classic()
 
-ggplot(list_dataset, aes(x = SCAS_TOTAL_0)) + geom_density(adjust = 2)  + theme_classic()
+ggplot(list_dataset, aes(x = SCAS_GAD_0)) + geom_density(adjust = 2)  + theme_classic()
 
-qq<-ggplot(list_dataset, aes(sample = SCAS_TOTAL_0)) + geom_qq()  + theme_classic()
+qq<-ggplot(list_dataset, aes(sample = SCAS_GAD_0)) + geom_qq()  + theme_classic()
 
 qq+ geom_qq_line()
 
 
 #functions below are base R functions, they can do the job, but not as customizable as ggplot
 
-hist(list_dataset$SCAS_TOTAL_0)
+hist(list_dataset$SCAS_GAD_0)
 
-qqnorm(list_dataset$SCAS_TOTAL_0, col = "steelblue", lwd = 2)
+qqnorm(list_dataset$SCAS_GAD_0, col = "steelblue", lwd = 2)
 
-plot(density(list_dataset$SCAS_TOTAL_0, na.rm = TRUE, bw = 90),  lwd=2, main = "")
+plot(density(list_dataset$SCAS_GAD_0, na.rm = TRUE, bw = 90),  lwd=2, main = "")
 
-describe(list_dataset$SCAS_TOTAL_0)
+describe(list_dataset$SCAS_GAD_0)
 
-shapiro.test(list_dataset$SCAS_TOTAL_0)
+shapiro.test(list_dataset$SCAS_GAD_0)
 
 ```
 # Normality for Self-Compassion Scores
 ```{r}
 
-ggplot(list_dataset, aes(x = SCS_Total_0)) + geom_histogram(binwidth = .8) + theme_classic()
+ggplot(list_dataset, aes(x = SCS_SelfCompassion)) + geom_histogram(binwidth = .8) + theme_classic()
 
-ggplot(list_dataset, aes(x = SCS_Total_0)) + geom_density(adjust = 2)  + theme_classic()
+ggplot(list_dataset, aes(x = SCS_SelfCompassion)) + geom_density(adjust = 2)  + theme_classic()
 
-qq<-ggplot(list_dataset, aes(sample = SCS_Total_0)) + geom_qq()  + theme_classic()
+qq<-ggplot(list_dataset, aes(sample = SCS_SelfCompassion)) + geom_qq()  + theme_classic()
 
 qq+ geom_qq_line()
 
 
 #functions below are base R functions, they can do the job, but not as customizable as ggplot
 
-hist(list_dataset$SCS_Total_0)
+hist(list_dataset$SCS_SelfCompassion)
 
-qqnorm(list_dataset$SCS_Total_0, col = "steelblue", lwd = 2)
+qqnorm(list_dataset$SCS_SelfCompassion, col = "steelblue", lwd = 2)
 
-plot(density(list_dataset$SCS_Total_0, na.rm = TRUE, bw = 90),  lwd=2, main = "")
+plot(density(list_dataset$SCS_SelfCompassion, na.rm = TRUE, bw = 90),  lwd=2, main = "")
 
-describe(list_dataset$SCS_Total_0)
+describe(list_dataset$SCS_SelfCompassion)
 
-shapiro.test(list_dataset$SCS_Total_0)
+shapiro.test(list_dataset$SCS_SelfCompassion)
 ```
 
-#Regression for Gender 
+# Analysis
 ```{r}
-model <- lm(SCAS_TOTAL_0 ~ Gender_0 + SCS_Total_0, data = list_dataset)
-check_model(model)
-model_summary(model)
-tab_model(model)
+model <- PROCESS(list_dataset, y = "SCAS_GAD_0", x = "SCS_SelfCompassion", mods = "Gender_0")
 
-plot_model(model,  type ="est",  show.values = TRUE, vline.color = "#1B191999", line.size = 1.5, dot.size = 2.5, colors = "blue") + theme_bruce()
+ggplot(list_dataset, aes(x = SCS_SelfCompassion, y = SCAS_GAD_0, color = Gender_0)) +
+  geom_point() +  # scatter plot of the data points
+  geom_smooth(method = "lm", se = TRUE) +  # adds a linear model line with confidence intervals
+  labs(
+    x = "Self-Compassion Score",
+    y = "GAD Score",
+    title = "Effect of Self-Compassion on GAD by Gender"
+  ) +
+  theme_minimal()
+
 ```
+# Explanatory Research
+```{r}
+model <- PROCESS(list_dataset, y = "FoMO_Total", x = "SCS_SelfCompassion", mods = "Gender_0")
 
-# I decided to use a subscale rather than the whole scale. I will fix the other parts accordingly later on bc I have to submit this by tonight.
+ggplot(list_dataset, aes(x = SCS_SelfCompassion, y = FoMO_Total, color = Gender_0)) +
+  geom_point() +  # scatter plot of the data points
+  geom_smooth(method = "lm", se = TRUE) +  # adds a linear model line with confidence intervals
+  labs(
+    x = "Self-Compassion Score",
+    y = "FoMO Score",
+    title = "Effect of Self-Compassion on FoMo by Gender"
+  ) +
+  theme_minimal()
+```
 
 #Reliability for Generalized Anxiety Subscale
 ```{r}

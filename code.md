@@ -109,10 +109,11 @@ library(performance)
 library(sjPlot)
 ```
 
-    ## Install package "strengejacke" from GitHub (`devtools::install_github("strengejacke/strengejacke")`) to load all sj-packages at once!
+    ## Learn more about sjPlot with 'browseVignettes("sjPlot")'.
 
 ``` r
 library(emmeans)
+library(psych)
 ```
 
 # Load Datasets
@@ -154,36 +155,37 @@ list_dataset<- drop_na(dataset)
 ``` r
 list_dataset %>% 
   group_by(Gender_0) %>%
-  dplyr::summarize(mean_SCAS    = mean(SCAS_TOTAL_0),
-      mean_SCS    = mean(SCS_Total_0),
-      std_dev_SCAS = sd(SCAS_TOTAL_0),
-      std_dev_SCs = sd(SCS_Total_0),
-      corr_SCAS_  = cor(SCAS_TOTAL_0, SCS_Total_0)
+  dplyr::summarize(mean_SCAS_GAD_0    = mean(SCAS_GAD_0),
+      mean_SCS    = mean(SCS_SelfCompassion),
+      std_dev_SCAS_GAD_0 = sd(SCAS_GAD_0),
+      std_dev_SelfCompassion = sd(SCS_SelfCompassion),
+      corr_SCAS_  = cor(SCAS_GAD_0, SCS_SelfCompassion)
     )
 ```
 
     ## # A tibble: 2 × 6
-    ##   Gender_0 mean_SCAS mean_SCS std_dev_SCAS std_dev_SCs corr_SCAS_
-    ##      <dbl>     <dbl>    <dbl>        <dbl>       <dbl>      <dbl>
-    ## 1        1      25.1     3.11         15.4       0.518     -0.443
-    ## 2        2      34.3     3.11         17.0       0.614     -0.557
+    ##   Gender_0 mean_SCAS_GAD_0 mean_SCS std_dev_SCAS_GAD_0 std_dev_SelfCompassion
+    ##      <dbl>           <dbl>    <dbl>              <dbl>                  <dbl>
+    ## 1        1            5.91     2.73               3.45                  0.863
+    ## 2        2            7.89     3.00               3.88                  0.727
+    ## # ℹ 1 more variable: corr_SCAS_ <dbl>
 
 # Normality for Anxiety Scores
 
 ``` r
-ggplot(list_dataset, aes(x = SCAS_TOTAL_0)) + geom_histogram(binwidth = 2) + theme_classic()
+ggplot(list_dataset, aes(x = SCAS_GAD_0)) + geom_histogram(binwidth = 2) + theme_classic()
 ```
 
 ![](code_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
 
 ``` r
-ggplot(list_dataset, aes(x = SCAS_TOTAL_0)) + geom_density(adjust = 2)  + theme_classic()
+ggplot(list_dataset, aes(x = SCAS_GAD_0)) + geom_density(adjust = 2)  + theme_classic()
 ```
 
 ![](code_files/figure-gfm/unnamed-chunk-6-2.png)<!-- -->
 
 ``` r
-qq<-ggplot(list_dataset, aes(sample = SCAS_TOTAL_0)) + geom_qq()  + theme_classic()
+qq<-ggplot(list_dataset, aes(sample = SCAS_GAD_0)) + geom_qq()  + theme_classic()
 
 qq+ geom_qq_line()
 ```
@@ -193,56 +195,56 @@ qq+ geom_qq_line()
 ``` r
 #functions below are base R functions, they can do the job, but not as customizable as ggplot
 
-hist(list_dataset$SCAS_TOTAL_0)
+hist(list_dataset$SCAS_GAD_0)
 ```
 
 ![](code_files/figure-gfm/unnamed-chunk-6-4.png)<!-- -->
 
 ``` r
-qqnorm(list_dataset$SCAS_TOTAL_0, col = "steelblue", lwd = 2)
+qqnorm(list_dataset$SCAS_GAD_0, col = "steelblue", lwd = 2)
 ```
 
 ![](code_files/figure-gfm/unnamed-chunk-6-5.png)<!-- -->
 
 ``` r
-plot(density(list_dataset$SCAS_TOTAL_0, na.rm = TRUE, bw = 90),  lwd=2, main = "")
+plot(density(list_dataset$SCAS_GAD_0, na.rm = TRUE, bw = 90),  lwd=2, main = "")
 ```
 
 ![](code_files/figure-gfm/unnamed-chunk-6-6.png)<!-- -->
 
 ``` r
-describe(list_dataset$SCAS_TOTAL_0)
+describe(list_dataset$SCAS_GAD_0)
 ```
 
-    ##    vars   n  mean    sd median trimmed   mad min max range skew kurtosis   se
-    ## X1    1 916 29.38 16.81     26   27.81 14.83   0  98    98 0.91      0.7 0.56
+    ##    vars   n mean   sd median trimmed  mad min max range skew kurtosis   se
+    ## X1    1 916 6.84 3.78      6    6.55 2.97   0  18    18 0.69     0.11 0.13
 
 ``` r
-shapiro.test(list_dataset$SCAS_TOTAL_0)
+shapiro.test(list_dataset$SCAS_GAD_0)
 ```
 
     ## 
     ##  Shapiro-Wilk normality test
     ## 
-    ## data:  list_dataset$SCAS_TOTAL_0
-    ## W = 0.94619, p-value < 2.2e-16
+    ## data:  list_dataset$SCAS_GAD_0
+    ## W = 0.95639, p-value = 7.251e-16
 
 # Normality for Self-Compassion Scores
 
 ``` r
-ggplot(list_dataset, aes(x = SCS_Total_0)) + geom_histogram(binwidth = .8) + theme_classic()
+ggplot(list_dataset, aes(x = SCS_SelfCompassion)) + geom_histogram(binwidth = .8) + theme_classic()
 ```
 
 ![](code_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
 
 ``` r
-ggplot(list_dataset, aes(x = SCS_Total_0)) + geom_density(adjust = 2)  + theme_classic()
+ggplot(list_dataset, aes(x = SCS_SelfCompassion)) + geom_density(adjust = 2)  + theme_classic()
 ```
 
 ![](code_files/figure-gfm/unnamed-chunk-7-2.png)<!-- -->
 
 ``` r
-qq<-ggplot(list_dataset, aes(sample = SCS_Total_0)) + geom_qq()  + theme_classic()
+qq<-ggplot(list_dataset, aes(sample = SCS_SelfCompassion)) + geom_qq()  + theme_classic()
 
 qq+ geom_qq_line()
 ```
@@ -252,174 +254,230 @@ qq+ geom_qq_line()
 ``` r
 #functions below are base R functions, they can do the job, but not as customizable as ggplot
 
-hist(list_dataset$SCS_Total_0)
+hist(list_dataset$SCS_SelfCompassion)
 ```
 
 ![](code_files/figure-gfm/unnamed-chunk-7-4.png)<!-- -->
 
 ``` r
-qqnorm(list_dataset$SCS_Total_0, col = "steelblue", lwd = 2)
+qqnorm(list_dataset$SCS_SelfCompassion, col = "steelblue", lwd = 2)
 ```
 
 ![](code_files/figure-gfm/unnamed-chunk-7-5.png)<!-- -->
 
 ``` r
-plot(density(list_dataset$SCS_Total_0, na.rm = TRUE, bw = 90),  lwd=2, main = "")
+plot(density(list_dataset$SCS_SelfCompassion, na.rm = TRUE, bw = 90),  lwd=2, main = "")
 ```
 
 ![](code_files/figure-gfm/unnamed-chunk-7-6.png)<!-- -->
 
 ``` r
-describe(list_dataset$SCS_Total_0)
+describe(list_dataset$SCS_SelfCompassion)
 ```
 
-    ##    vars   n mean   sd median trimmed mad  min  max range skew kurtosis   se
-    ## X1    1 916 3.11 0.56   3.08    3.11 0.5 1.25 4.83  3.58 0.03     0.49 0.02
+    ##    vars   n mean   sd median trimmed  mad min max range  skew kurtosis   se
+    ## X1    1 916 2.86 0.81      3    2.89 0.74   1   5     4 -0.32     0.05 0.03
 
 ``` r
-shapiro.test(list_dataset$SCS_Total_0)
+shapiro.test(list_dataset$SCS_SelfCompassion)
 ```
 
     ## 
     ##  Shapiro-Wilk normality test
     ## 
-    ## data:  list_dataset$SCS_Total_0
-    ## W = 0.98961, p-value = 4.447e-06
+    ## data:  list_dataset$SCS_SelfCompassion
+    ## W = 0.9769, p-value = 7.107e-11
 
-\#Regression for Gender
-
-``` r
-model <- lm(SCAS_TOTAL_0 ~ Gender_0 + SCS_Total_0, data = list_dataset)
-check_model(model)
-```
-
-![](code_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
+# Analysis
 
 ``` r
-model_summary(model)
+model <- PROCESS(list_dataset, y = "SCAS_GAD_0", x = "SCS_SelfCompassion", mods = "Gender_0")
 ```
 
     ## 
+    ## ****************** PART 1. Regression Model Summary ******************
+    ## 
+    ## PROCESS Model Code : 1 (Hayes, 2018; www.guilford.com/p/hayes3)
+    ## PROCESS Model Type : Simple Moderation
+    ## -    Outcome (Y) : SCAS_GAD_0
+    ## -  Predictor (X) : SCS_SelfCompassion
+    ## -  Mediators (M) : -
+    ## - Moderators (W) : Gender_0
+    ## - Covariates (C) : -
+    ## -   HLM Clusters : -
+    ## 
+    ## All numeric predictors have been grand-mean centered.
+    ## (For details, please see the help page of PROCESS.)
+    ## 
+    ## Formula of Outcome:
+    ## -    SCAS_GAD_0 ~ SCS_SelfCompassion*Gender_0
+    ## 
+    ## CAUTION:
+    ##   Fixed effect (coef.) of a predictor involved in an interaction
+    ##   denotes its "simple effect/slope" at the other predictor = 0.
+    ##   Only when all predictors in an interaction are mean-centered
+    ##   can the fixed effect denote the "main effect"!
+    ##   
     ## Model Summary
     ## 
-    ## ─────────────────────────────
-    ##              (1) SCAS_TOTAL_0
-    ## ─────────────────────────────
-    ## (Intercept)   60.517 ***     
-    ##               (2.915)        
-    ## Gender_0       9.307 ***     
-    ##               (0.926)        
-    ## SCS_Total_0  -14.407 ***     
-    ##               (0.818)        
-    ## ─────────────────────────────
-    ## R^2            0.310         
-    ## Adj. R^2       0.308         
-    ## Num. obs.    916             
-    ## ─────────────────────────────
+    ## ───────────────────────────────────────────────────────────
+    ##                              (1) SCAS_GAD_0  (2) SCAS_GAD_0
+    ## ───────────────────────────────────────────────────────────
+    ## (Intercept)                    6.835 ***       6.902 ***   
+    ##                               (0.125)         (0.122)      
+    ## SCS_SelfCompassion             0.351 *         0.073       
+    ##                               (0.154)         (0.152)      
+    ## Gender_0                                       1.974 ***   
+    ##                                               (0.244)      
+    ## SCS_SelfCompassion:Gender_0                   -1.000 **    
+    ##                                               (0.308)      
+    ## ───────────────────────────────────────────────────────────
+    ## R^2                            0.006           0.080       
+    ## Adj. R^2                       0.005           0.077       
+    ## Num. obs.                    916             916           
+    ## ───────────────────────────────────────────────────────────
     ## Note. * p < .05, ** p < .01, *** p < .001.
     ## 
-    ## # Check for Multicollinearity
+    ## ************ PART 2. Mediation/Moderation Effect Estimate ************
     ## 
-    ## Low Correlation
+    ## Package Use : ‘interactions’ (v1.2.0)
+    ## Effect Type : Simple Moderation (Model 1)
+    ## Sample Size : 916
+    ## Random Seed : -
+    ## Simulations : -
     ## 
-    ##         Term  VIF  VIF 95% CI Increased SE Tolerance Tolerance 95% CI
-    ##     Gender_0 1.00 [1.00, Inf]         1.00      1.00     [0.00, 1.00]
-    ##  SCS_Total_0 1.00 [1.00, Inf]         1.00      1.00     [0.00, 1.00]
+    ## Interaction Effect on "SCAS_GAD_0" (Y)
+    ## ──────────────────────────────────────────────────────
+    ##                                    F df1 df2     p    
+    ## ──────────────────────────────────────────────────────
+    ## SCS_SelfCompassion * Gender_0  10.52   1 912  .001 ** 
+    ## ──────────────────────────────────────────────────────
+    ## 
+    ## Simple Slopes: "SCS_SelfCompassion" (X) ==> "SCAS_GAD_0" (Y)
+    ## ───────────────────────────────────────────────────────────
+    ##  "Gender_0" Effect    S.E.      t     p            [95% CI]
+    ## ───────────────────────────────────────────────────────────
+    ##  1.000       0.540 (0.191)  2.828  .005 **  [ 0.165, 0.915]
+    ##  2.000      -0.459 (0.242) -1.899  .058 .   [-0.934, 0.015]
+    ## ───────────────────────────────────────────────────────────
 
 ``` r
-tab_model(model)
+ggplot(list_dataset, aes(x = SCS_SelfCompassion, y = SCAS_GAD_0, color = Gender_0)) +
+  geom_point() +  # scatter plot of the data points
+  geom_smooth(method = "lm", se = TRUE) +  # adds a linear model line with confidence intervals
+  labs(
+    x = "Self-Compassion Score",
+    y = "GAD Score",
+    title = "Effect of Self-Compassion on GAD by Gender"
+  ) +
+  theme_minimal()
 ```
 
-<table style="border-collapse:collapse; border:none;">
-<tr>
-<th style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm;  text-align:left; ">
- 
-</th>
-<th colspan="3" style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm; ">
-SCAS_TOTAL_0
-</th>
-</tr>
-<tr>
-<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  text-align:left; ">
-Predictors
-</td>
-<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
-Estimates
-</td>
-<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
-CI
-</td>
-<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
-p
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-(Intercept)
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-60.52
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-54.79 – 66.24
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-<strong>\<0.001</strong>
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-Gender 0
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-9.31
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-7.49 – 11.12
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-<strong>\<0.001</strong>
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-SCS Total 0
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--14.41
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--16.01 – -12.80
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-<strong>\<0.001</strong>
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm; border-top:1px solid;">
-Observations
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left; border-top:1px solid;" colspan="3">
-916
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
-R<sup>2</sup> / R<sup>2</sup> adjusted
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
-0.310 / 0.308
-</td>
-</tr>
-</table>
+    ## `geom_smooth()` using formula = 'y ~ x'
+
+    ## Warning: The following aesthetics were dropped during statistical transformation:
+    ## colour.
+    ## ℹ This can happen when ggplot fails to infer the correct grouping structure in
+    ##   the data.
+    ## ℹ Did you forget to specify a `group` aesthetic or to convert a numerical
+    ##   variable into a factor?
+
+![](code_files/figure-gfm/unnamed-chunk-8-1.png)<!-- --> \# Explanatory
+Research
 
 ``` r
-plot_model(model,  type ="est",  show.values = TRUE, vline.color = "#1B191999", line.size = 1.5, dot.size = 2.5, colors = "blue") + theme_bruce()
+model <- PROCESS(list_dataset, y = "FoMO_Total", x = "SCS_SelfCompassion", mods = "Gender_0")
 ```
 
-![](code_files/figure-gfm/unnamed-chunk-8-2.png)<!-- -->
+    ## 
+    ## ****************** PART 1. Regression Model Summary ******************
+    ## 
+    ## PROCESS Model Code : 1 (Hayes, 2018; www.guilford.com/p/hayes3)
+    ## PROCESS Model Type : Simple Moderation
+    ## -    Outcome (Y) : FoMO_Total
+    ## -  Predictor (X) : SCS_SelfCompassion
+    ## -  Mediators (M) : -
+    ## - Moderators (W) : Gender_0
+    ## - Covariates (C) : -
+    ## -   HLM Clusters : -
+    ## 
+    ## All numeric predictors have been grand-mean centered.
+    ## (For details, please see the help page of PROCESS.)
+    ## 
+    ## Formula of Outcome:
+    ## -    FoMO_Total ~ SCS_SelfCompassion*Gender_0
+    ## 
+    ## CAUTION:
+    ##   Fixed effect (coef.) of a predictor involved in an interaction
+    ##   denotes its "simple effect/slope" at the other predictor = 0.
+    ##   Only when all predictors in an interaction are mean-centered
+    ##   can the fixed effect denote the "main effect"!
+    ##   
+    ## Model Summary
+    ## 
+    ## ───────────────────────────────────────────────────────────
+    ##                              (1) FoMO_Total  (2) FoMO_Total
+    ## ───────────────────────────────────────────────────────────
+    ## (Intercept)                   10.492 ***      10.508 ***   
+    ##                               (0.136)         (0.137)      
+    ## SCS_SelfCompassion             0.399 *         0.257       
+    ##                               (0.167)         (0.170)      
+    ## Gender_0                                       1.231 ***   
+    ##                                               (0.274)      
+    ## SCS_SelfCompassion:Gender_0                   -0.236       
+    ##                                               (0.345)      
+    ## ───────────────────────────────────────────────────────────
+    ## R^2                            0.006           0.028       
+    ## Adj. R^2                       0.005           0.025       
+    ## Num. obs.                    916             916           
+    ## ───────────────────────────────────────────────────────────
+    ## Note. * p < .05, ** p < .01, *** p < .001.
+    ## 
+    ## ************ PART 2. Mediation/Moderation Effect Estimate ************
+    ## 
+    ## Package Use : ‘interactions’ (v1.2.0)
+    ## Effect Type : Simple Moderation (Model 1)
+    ## Sample Size : 916
+    ## Random Seed : -
+    ## Simulations : -
+    ## 
+    ## Interaction Effect on "FoMO_Total" (Y)
+    ## ─────────────────────────────────────────────────────
+    ##                                   F df1 df2     p    
+    ## ─────────────────────────────────────────────────────
+    ## SCS_SelfCompassion * Gender_0  0.47   1 912  .495    
+    ## ─────────────────────────────────────────────────────
+    ## 
+    ## Simple Slopes: "SCS_SelfCompassion" (X) ==> "FoMO_Total" (Y)
+    ## ──────────────────────────────────────────────────────────
+    ##  "Gender_0" Effect    S.E.     t     p            [95% CI]
+    ## ──────────────────────────────────────────────────────────
+    ##  1.000       0.367 (0.214) 1.716  .086 .   [-0.053, 0.787]
+    ##  2.000       0.131 (0.271) 0.484  .628     [-0.401, 0.663]
+    ## ──────────────────────────────────────────────────────────
 
-# I decided to use a subscale rather than the whole scale. I will fix the other parts accordingly later on bc I have to submit this by tonight.
+``` r
+ggplot(list_dataset, aes(x = SCS_SelfCompassion, y = FoMO_Total, color = Gender_0)) +
+  geom_point() +  # scatter plot of the data points
+  geom_smooth(method = "lm", se = TRUE) +  # adds a linear model line with confidence intervals
+  labs(
+    x = "Self-Compassion Score",
+    y = "FoMO Score",
+    title = "Effect of Self-Compassion on FoMo by Gender"
+  ) +
+  theme_minimal()
+```
+
+    ## `geom_smooth()` using formula = 'y ~ x'
+
+    ## Warning: The following aesthetics were dropped during statistical transformation:
+    ## colour.
+    ## ℹ This can happen when ggplot fails to infer the correct grouping structure in
+    ##   the data.
+    ## ℹ Did you forget to specify a `group` aesthetic or to convert a numerical
+    ##   variable into a factor?
+
+![](code_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
 
 \#Reliability for Generalized Anxiety Subscale
 
@@ -542,7 +600,7 @@ EFA(list_dataset, vars=c("SCAS_1_0", "SCAS_3_0", "SCAS_4_0", "SCAS_20_0", "SCAS_
     ## Communality = Sum of Squared (SS) Factor Loadings
     ## (Uniqueness = 1 - Communality)
 
-![](code_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
+![](code_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
 
 # Exploratory Factor Analysis for Self-Compassion Subscale
 
@@ -595,4 +653,4 @@ EFA(list_dataset, vars=c("SCS_2_0", "SCS_3_0", "SCS_5_0", "SCS_6_0",
     ## Communality = Sum of Squared (SS) Factor Loadings
     ## (Uniqueness = 1 - Communality)
 
-![](code_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
+![](code_files/figure-gfm/unnamed-chunk-13-1.png)<!-- -->
