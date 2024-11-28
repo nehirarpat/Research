@@ -52,6 +52,12 @@ list_dataset<- drop_na(dataset)
 
 ```
 
+# Gender Ratio
+```{r}
+gender_counts <- table(list_dataset$Gender_0)
+print(gender_counts)
+```
+
 # Get Summary Descriptive Statistics
 ```{r}
 list_dataset %>% 
@@ -133,15 +139,15 @@ ggplot(list_dataset, aes(x = SCS_SelfCompassion, y = SCAS_GAD_0, color = Gender_
 ```
 # Explanatory Research
 ```{r}
-model <- PROCESS(list_dataset, y = "FoMO_Total", x = "SCS_SelfCompassion", mods = "Gender_0")
+model <- PROCESS(list_dataset, y = "SCS_SelfCriticism", x = "SCS_SelfCompassion", mods = "Gender_0")
 
-ggplot(list_dataset, aes(x = SCS_SelfCompassion, y = FoMO_Total, color = Gender_0)) +
+ggplot(list_dataset, aes(x = SCS_SelfCompassion, y = SCS_SelfCriticism, color = Gender_0)) +
   geom_point() +  # scatter plot of the data points
   geom_smooth(method = "lm", se = TRUE) +  # adds a linear model line with confidence intervals
   labs(
     x = "Self-Compassion Score",
-    y = "FoMO Score",
-    title = "Effect of Self-Compassion on FoMo by Gender"
+    y = "Self-Criticism Score",
+    title = "Effect of Self-Compassion on Self-Criticism by Gender"
   ) +
   theme_minimal()
 ```

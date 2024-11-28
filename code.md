@@ -150,6 +150,17 @@ list_dataset<- drop_na(dataset)
 #pair wise deletion will only be used when you run the actual analysis using "na.rm = TRUE"
 ```
 
+# Gender Ratio
+
+``` r
+gender_counts <- table(list_dataset$Gender_0)
+print(gender_counts)
+```
+
+    ## 
+    ##   1   2 
+    ## 488 428
+
 # Get Summary Descriptive Statistics
 
 ``` r
@@ -176,13 +187,13 @@ list_dataset %>%
 ggplot(list_dataset, aes(x = SCAS_GAD_0)) + geom_histogram(binwidth = 2) + theme_classic()
 ```
 
-![](code_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
+![](code_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
 
 ``` r
 ggplot(list_dataset, aes(x = SCAS_GAD_0)) + geom_density(adjust = 2)  + theme_classic()
 ```
 
-![](code_files/figure-gfm/unnamed-chunk-6-2.png)<!-- -->
+![](code_files/figure-gfm/unnamed-chunk-7-2.png)<!-- -->
 
 ``` r
 qq<-ggplot(list_dataset, aes(sample = SCAS_GAD_0)) + geom_qq()  + theme_classic()
@@ -190,7 +201,7 @@ qq<-ggplot(list_dataset, aes(sample = SCAS_GAD_0)) + geom_qq()  + theme_classic(
 qq+ geom_qq_line()
 ```
 
-![](code_files/figure-gfm/unnamed-chunk-6-3.png)<!-- -->
+![](code_files/figure-gfm/unnamed-chunk-7-3.png)<!-- -->
 
 ``` r
 #functions below are base R functions, they can do the job, but not as customizable as ggplot
@@ -198,19 +209,19 @@ qq+ geom_qq_line()
 hist(list_dataset$SCAS_GAD_0)
 ```
 
-![](code_files/figure-gfm/unnamed-chunk-6-4.png)<!-- -->
+![](code_files/figure-gfm/unnamed-chunk-7-4.png)<!-- -->
 
 ``` r
 qqnorm(list_dataset$SCAS_GAD_0, col = "steelblue", lwd = 2)
 ```
 
-![](code_files/figure-gfm/unnamed-chunk-6-5.png)<!-- -->
+![](code_files/figure-gfm/unnamed-chunk-7-5.png)<!-- -->
 
 ``` r
 plot(density(list_dataset$SCAS_GAD_0, na.rm = TRUE, bw = 90),  lwd=2, main = "")
 ```
 
-![](code_files/figure-gfm/unnamed-chunk-6-6.png)<!-- -->
+![](code_files/figure-gfm/unnamed-chunk-7-6.png)<!-- -->
 
 ``` r
 describe(list_dataset$SCAS_GAD_0)
@@ -235,13 +246,13 @@ shapiro.test(list_dataset$SCAS_GAD_0)
 ggplot(list_dataset, aes(x = SCS_SelfCompassion)) + geom_histogram(binwidth = .8) + theme_classic()
 ```
 
-![](code_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
+![](code_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
 
 ``` r
 ggplot(list_dataset, aes(x = SCS_SelfCompassion)) + geom_density(adjust = 2)  + theme_classic()
 ```
 
-![](code_files/figure-gfm/unnamed-chunk-7-2.png)<!-- -->
+![](code_files/figure-gfm/unnamed-chunk-8-2.png)<!-- -->
 
 ``` r
 qq<-ggplot(list_dataset, aes(sample = SCS_SelfCompassion)) + geom_qq()  + theme_classic()
@@ -249,7 +260,7 @@ qq<-ggplot(list_dataset, aes(sample = SCS_SelfCompassion)) + geom_qq()  + theme_
 qq+ geom_qq_line()
 ```
 
-![](code_files/figure-gfm/unnamed-chunk-7-3.png)<!-- -->
+![](code_files/figure-gfm/unnamed-chunk-8-3.png)<!-- -->
 
 ``` r
 #functions below are base R functions, they can do the job, but not as customizable as ggplot
@@ -257,19 +268,19 @@ qq+ geom_qq_line()
 hist(list_dataset$SCS_SelfCompassion)
 ```
 
-![](code_files/figure-gfm/unnamed-chunk-7-4.png)<!-- -->
+![](code_files/figure-gfm/unnamed-chunk-8-4.png)<!-- -->
 
 ``` r
 qqnorm(list_dataset$SCS_SelfCompassion, col = "steelblue", lwd = 2)
 ```
 
-![](code_files/figure-gfm/unnamed-chunk-7-5.png)<!-- -->
+![](code_files/figure-gfm/unnamed-chunk-8-5.png)<!-- -->
 
 ``` r
 plot(density(list_dataset$SCS_SelfCompassion, na.rm = TRUE, bw = 90),  lwd=2, main = "")
 ```
 
-![](code_files/figure-gfm/unnamed-chunk-7-6.png)<!-- -->
+![](code_files/figure-gfm/unnamed-chunk-8-6.png)<!-- -->
 
 ``` r
 describe(list_dataset$SCS_SelfCompassion)
@@ -382,11 +393,11 @@ ggplot(list_dataset, aes(x = SCS_SelfCompassion, y = SCAS_GAD_0, color = Gender_
     ## ℹ Did you forget to specify a `group` aesthetic or to convert a numerical
     ##   variable into a factor?
 
-![](code_files/figure-gfm/unnamed-chunk-8-1.png)<!-- --> \# Explanatory
+![](code_files/figure-gfm/unnamed-chunk-9-1.png)<!-- --> \# Explanatory
 Research
 
 ``` r
-model <- PROCESS(list_dataset, y = "FoMO_Total", x = "SCS_SelfCompassion", mods = "Gender_0")
+model <- PROCESS(list_dataset, y = "SCS_SelfCriticism", x = "SCS_SelfCompassion", mods = "Gender_0")
 ```
 
     ## 
@@ -394,7 +405,7 @@ model <- PROCESS(list_dataset, y = "FoMO_Total", x = "SCS_SelfCompassion", mods 
     ## 
     ## PROCESS Model Code : 1 (Hayes, 2018; www.guilford.com/p/hayes3)
     ## PROCESS Model Type : Simple Moderation
-    ## -    Outcome (Y) : FoMO_Total
+    ## -    Outcome (Y) : SCS_SelfCriticism
     ## -  Predictor (X) : SCS_SelfCompassion
     ## -  Mediators (M) : -
     ## - Moderators (W) : Gender_0
@@ -405,7 +416,7 @@ model <- PROCESS(list_dataset, y = "FoMO_Total", x = "SCS_SelfCompassion", mods 
     ## (For details, please see the help page of PROCESS.)
     ## 
     ## Formula of Outcome:
-    ## -    FoMO_Total ~ SCS_SelfCompassion*Gender_0
+    ## -    SCS_SelfCriticism ~ SCS_SelfCompassion*Gender_0
     ## 
     ## CAUTION:
     ##   Fixed effect (coef.) of a predictor involved in an interaction
@@ -415,22 +426,22 @@ model <- PROCESS(list_dataset, y = "FoMO_Total", x = "SCS_SelfCompassion", mods 
     ##   
     ## Model Summary
     ## 
-    ## ───────────────────────────────────────────────────────────
-    ##                              (1) FoMO_Total  (2) FoMO_Total
-    ## ───────────────────────────────────────────────────────────
-    ## (Intercept)                   10.492 ***      10.508 ***   
-    ##                               (0.136)         (0.137)      
-    ## SCS_SelfCompassion             0.399 *         0.257       
-    ##                               (0.167)         (0.170)      
-    ## Gender_0                                       1.231 ***   
-    ##                                               (0.274)      
-    ## SCS_SelfCompassion:Gender_0                   -0.236       
-    ##                                               (0.345)      
-    ## ───────────────────────────────────────────────────────────
-    ## R^2                            0.006           0.028       
-    ## Adj. R^2                       0.005           0.025       
-    ## Num. obs.                    916             916           
-    ## ───────────────────────────────────────────────────────────
+    ## ─────────────────────────────────────────────────────────────────────────
+    ##                              (1) SCS_SelfCriticism  (2) SCS_SelfCriticism
+    ## ─────────────────────────────────────────────────────────────────────────
+    ## (Intercept)                    2.641 ***              2.672 ***          
+    ##                               (0.032)                (0.032)             
+    ## SCS_SelfCompassion             0.287 ***              0.228 ***          
+    ##                               (0.039)                (0.040)             
+    ## Gender_0                                              0.206 **           
+    ##                                                      (0.064)             
+    ## SCS_SelfCompassion:Gender_0                          -0.472 ***          
+    ##                                                      (0.080)             
+    ## ─────────────────────────────────────────────────────────────────────────
+    ## R^2                            0.055                  0.097              
+    ## Adj. R^2                       0.054                  0.094              
+    ## Num. obs.                    916                    916                  
+    ## ─────────────────────────────────────────────────────────────────────────
     ## Note. * p < .05, ** p < .01, *** p < .001.
     ## 
     ## ************ PART 2. Mediation/Moderation Effect Estimate ************
@@ -441,29 +452,29 @@ model <- PROCESS(list_dataset, y = "FoMO_Total", x = "SCS_SelfCompassion", mods 
     ## Random Seed : -
     ## Simulations : -
     ## 
-    ## Interaction Effect on "FoMO_Total" (Y)
-    ## ─────────────────────────────────────────────────────
-    ##                                   F df1 df2     p    
-    ## ─────────────────────────────────────────────────────
-    ## SCS_SelfCompassion * Gender_0  0.47   1 912  .495    
-    ## ─────────────────────────────────────────────────────
+    ## Interaction Effect on "SCS_SelfCriticism" (Y)
+    ## ──────────────────────────────────────────────────────
+    ##                                    F df1 df2     p    
+    ## ──────────────────────────────────────────────────────
+    ## SCS_SelfCompassion * Gender_0  34.40   1 912 <.001 ***
+    ## ──────────────────────────────────────────────────────
     ## 
-    ## Simple Slopes: "SCS_SelfCompassion" (X) ==> "FoMO_Total" (Y)
-    ## ──────────────────────────────────────────────────────────
-    ##  "Gender_0" Effect    S.E.     t     p            [95% CI]
-    ## ──────────────────────────────────────────────────────────
-    ##  1.000       0.367 (0.214) 1.716  .086 .   [-0.053, 0.787]
-    ##  2.000       0.131 (0.271) 0.484  .628     [-0.401, 0.663]
-    ## ──────────────────────────────────────────────────────────
+    ## Simple Slopes: "SCS_SelfCompassion" (X) ==> "SCS_SelfCriticism" (Y)
+    ## ───────────────────────────────────────────────────────────
+    ##  "Gender_0" Effect    S.E.      t     p            [95% CI]
+    ## ───────────────────────────────────────────────────────────
+    ##  1.000       0.449 (0.050)  9.003 <.001 *** [ 0.351, 0.547]
+    ##  2.000      -0.023 (0.063) -0.364  .716     [-0.147, 0.101]
+    ## ───────────────────────────────────────────────────────────
 
 ``` r
-ggplot(list_dataset, aes(x = SCS_SelfCompassion, y = FoMO_Total, color = Gender_0)) +
+ggplot(list_dataset, aes(x = SCS_SelfCompassion, y = SCS_SelfCriticism, color = Gender_0)) +
   geom_point() +  # scatter plot of the data points
   geom_smooth(method = "lm", se = TRUE) +  # adds a linear model line with confidence intervals
   labs(
     x = "Self-Compassion Score",
-    y = "FoMO Score",
-    title = "Effect of Self-Compassion on FoMo by Gender"
+    y = "Self-Criticism Score",
+    title = "Effect of Self-Compassion on Self-Criticism by Gender"
   ) +
   theme_minimal()
 ```
@@ -477,7 +488,7 @@ ggplot(list_dataset, aes(x = SCS_SelfCompassion, y = FoMO_Total, color = Gender_
     ## ℹ Did you forget to specify a `group` aesthetic or to convert a numerical
     ##   variable into a factor?
 
-![](code_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
+![](code_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
 
 \#Reliability for Generalized Anxiety Subscale
 
@@ -600,7 +611,7 @@ EFA(list_dataset, vars=c("SCAS_1_0", "SCAS_3_0", "SCAS_4_0", "SCAS_20_0", "SCAS_
     ## Communality = Sum of Squared (SS) Factor Loadings
     ## (Uniqueness = 1 - Communality)
 
-![](code_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
+![](code_files/figure-gfm/unnamed-chunk-13-1.png)<!-- -->
 
 # Exploratory Factor Analysis for Self-Compassion Subscale
 
@@ -653,4 +664,4 @@ EFA(list_dataset, vars=c("SCS_2_0", "SCS_3_0", "SCS_5_0", "SCS_6_0",
     ## Communality = Sum of Squared (SS) Factor Loadings
     ## (Uniqueness = 1 - Communality)
 
-![](code_files/figure-gfm/unnamed-chunk-13-1.png)<!-- -->
+![](code_files/figure-gfm/unnamed-chunk-14-1.png)<!-- -->
