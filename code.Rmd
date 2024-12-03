@@ -57,6 +57,11 @@ list_dataset<- drop_na(dataset)
 gender_counts <- table(list_dataset$Gender_0)
 print(gender_counts)
 ```
+# Mean Age
+```{r}
+m_age <- mean(list_dataset$Age)
+print(m_age)
+```
 
 # Get Summary Descriptive Statistics
 ```{r}
@@ -128,7 +133,7 @@ model <- PROCESS(list_dataset, y = "SCAS_GAD_0", x = "SCS_SelfCompassion", mods 
 
 ggplot(list_dataset, aes(x = SCS_SelfCompassion, y = SCAS_GAD_0, color = Gender_0)) +
   geom_point() +  # scatter plot of the data points
-  geom_smooth(method = "lm", se = TRUE) +  # adds a linear model line with confidence intervals
+  geom_smooth(method = "lm", se = TRUE, aes(group = Gender_0)) +  # separate regression lines by Gender
   labs(
     x = "Self-Compassion Score",
     y = "GAD Score",
@@ -143,13 +148,14 @@ model <- PROCESS(list_dataset, y = "SCS_SelfCriticism", x = "SCS_SelfCompassion"
 
 ggplot(list_dataset, aes(x = SCS_SelfCompassion, y = SCS_SelfCriticism, color = Gender_0)) +
   geom_point() +  # scatter plot of the data points
-  geom_smooth(method = "lm", se = TRUE) +  # adds a linear model line with confidence intervals
+  geom_smooth(method = "lm", se = TRUE, aes(group = Gender_0)) +  # separate regression lines by Gender
   labs(
     x = "Self-Compassion Score",
     y = "Self-Criticism Score",
     title = "Effect of Self-Compassion on Self-Criticism by Gender"
   ) +
   theme_minimal()
+
 ```
 
 #Reliability for Generalized Anxiety Subscale

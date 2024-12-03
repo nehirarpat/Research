@@ -109,7 +109,7 @@ library(performance)
 library(sjPlot)
 ```
 
-    ## Learn more about sjPlot with 'browseVignettes("sjPlot")'.
+    ## #refugeeswelcome
 
 ``` r
 library(emmeans)
@@ -161,6 +161,15 @@ print(gender_counts)
     ##   1   2 
     ## 488 428
 
+# Mean Age
+
+``` r
+m_age <- mean(list_dataset$Age)
+print(m_age)
+```
+
+    ## [1] 13.69541
+
 # Get Summary Descriptive Statistics
 
 ``` r
@@ -187,13 +196,13 @@ list_dataset %>%
 ggplot(list_dataset, aes(x = SCAS_GAD_0)) + geom_histogram(binwidth = 2) + theme_classic()
 ```
 
-![](code_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
+![](code_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
 
 ``` r
 ggplot(list_dataset, aes(x = SCAS_GAD_0)) + geom_density(adjust = 2)  + theme_classic()
 ```
 
-![](code_files/figure-gfm/unnamed-chunk-7-2.png)<!-- -->
+![](code_files/figure-gfm/unnamed-chunk-8-2.png)<!-- -->
 
 ``` r
 qq<-ggplot(list_dataset, aes(sample = SCAS_GAD_0)) + geom_qq()  + theme_classic()
@@ -201,7 +210,7 @@ qq<-ggplot(list_dataset, aes(sample = SCAS_GAD_0)) + geom_qq()  + theme_classic(
 qq+ geom_qq_line()
 ```
 
-![](code_files/figure-gfm/unnamed-chunk-7-3.png)<!-- -->
+![](code_files/figure-gfm/unnamed-chunk-8-3.png)<!-- -->
 
 ``` r
 #functions below are base R functions, they can do the job, but not as customizable as ggplot
@@ -209,19 +218,19 @@ qq+ geom_qq_line()
 hist(list_dataset$SCAS_GAD_0)
 ```
 
-![](code_files/figure-gfm/unnamed-chunk-7-4.png)<!-- -->
+![](code_files/figure-gfm/unnamed-chunk-8-4.png)<!-- -->
 
 ``` r
 qqnorm(list_dataset$SCAS_GAD_0, col = "steelblue", lwd = 2)
 ```
 
-![](code_files/figure-gfm/unnamed-chunk-7-5.png)<!-- -->
+![](code_files/figure-gfm/unnamed-chunk-8-5.png)<!-- -->
 
 ``` r
 plot(density(list_dataset$SCAS_GAD_0, na.rm = TRUE, bw = 90),  lwd=2, main = "")
 ```
 
-![](code_files/figure-gfm/unnamed-chunk-7-6.png)<!-- -->
+![](code_files/figure-gfm/unnamed-chunk-8-6.png)<!-- -->
 
 ``` r
 describe(list_dataset$SCAS_GAD_0)
@@ -246,13 +255,13 @@ shapiro.test(list_dataset$SCAS_GAD_0)
 ggplot(list_dataset, aes(x = SCS_SelfCompassion)) + geom_histogram(binwidth = .8) + theme_classic()
 ```
 
-![](code_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
+![](code_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
 
 ``` r
 ggplot(list_dataset, aes(x = SCS_SelfCompassion)) + geom_density(adjust = 2)  + theme_classic()
 ```
 
-![](code_files/figure-gfm/unnamed-chunk-8-2.png)<!-- -->
+![](code_files/figure-gfm/unnamed-chunk-9-2.png)<!-- -->
 
 ``` r
 qq<-ggplot(list_dataset, aes(sample = SCS_SelfCompassion)) + geom_qq()  + theme_classic()
@@ -260,7 +269,7 @@ qq<-ggplot(list_dataset, aes(sample = SCS_SelfCompassion)) + geom_qq()  + theme_
 qq+ geom_qq_line()
 ```
 
-![](code_files/figure-gfm/unnamed-chunk-8-3.png)<!-- -->
+![](code_files/figure-gfm/unnamed-chunk-9-3.png)<!-- -->
 
 ``` r
 #functions below are base R functions, they can do the job, but not as customizable as ggplot
@@ -268,19 +277,19 @@ qq+ geom_qq_line()
 hist(list_dataset$SCS_SelfCompassion)
 ```
 
-![](code_files/figure-gfm/unnamed-chunk-8-4.png)<!-- -->
+![](code_files/figure-gfm/unnamed-chunk-9-4.png)<!-- -->
 
 ``` r
 qqnorm(list_dataset$SCS_SelfCompassion, col = "steelblue", lwd = 2)
 ```
 
-![](code_files/figure-gfm/unnamed-chunk-8-5.png)<!-- -->
+![](code_files/figure-gfm/unnamed-chunk-9-5.png)<!-- -->
 
 ``` r
 plot(density(list_dataset$SCS_SelfCompassion, na.rm = TRUE, bw = 90),  lwd=2, main = "")
 ```
 
-![](code_files/figure-gfm/unnamed-chunk-8-6.png)<!-- -->
+![](code_files/figure-gfm/unnamed-chunk-9-6.png)<!-- -->
 
 ``` r
 describe(list_dataset$SCS_SelfCompassion)
@@ -375,7 +384,7 @@ model <- PROCESS(list_dataset, y = "SCAS_GAD_0", x = "SCS_SelfCompassion", mods 
 ``` r
 ggplot(list_dataset, aes(x = SCS_SelfCompassion, y = SCAS_GAD_0, color = Gender_0)) +
   geom_point() +  # scatter plot of the data points
-  geom_smooth(method = "lm", se = TRUE) +  # adds a linear model line with confidence intervals
+  geom_smooth(method = "lm", se = TRUE, aes(group = Gender_0)) +  # separate regression lines by Gender
   labs(
     x = "Self-Compassion Score",
     y = "GAD Score",
@@ -386,14 +395,7 @@ ggplot(list_dataset, aes(x = SCS_SelfCompassion, y = SCAS_GAD_0, color = Gender_
 
     ## `geom_smooth()` using formula = 'y ~ x'
 
-    ## Warning: The following aesthetics were dropped during statistical transformation:
-    ## colour.
-    ## ℹ This can happen when ggplot fails to infer the correct grouping structure in
-    ##   the data.
-    ## ℹ Did you forget to specify a `group` aesthetic or to convert a numerical
-    ##   variable into a factor?
-
-![](code_files/figure-gfm/unnamed-chunk-9-1.png)<!-- --> \# Explanatory
+![](code_files/figure-gfm/unnamed-chunk-10-1.png)<!-- --> \# Explanatory
 Research
 
 ``` r
@@ -470,7 +472,7 @@ model <- PROCESS(list_dataset, y = "SCS_SelfCriticism", x = "SCS_SelfCompassion"
 ``` r
 ggplot(list_dataset, aes(x = SCS_SelfCompassion, y = SCS_SelfCriticism, color = Gender_0)) +
   geom_point() +  # scatter plot of the data points
-  geom_smooth(method = "lm", se = TRUE) +  # adds a linear model line with confidence intervals
+  geom_smooth(method = "lm", se = TRUE, aes(group = Gender_0)) +  # separate regression lines by Gender
   labs(
     x = "Self-Compassion Score",
     y = "Self-Criticism Score",
@@ -481,14 +483,7 @@ ggplot(list_dataset, aes(x = SCS_SelfCompassion, y = SCS_SelfCriticism, color = 
 
     ## `geom_smooth()` using formula = 'y ~ x'
 
-    ## Warning: The following aesthetics were dropped during statistical transformation:
-    ## colour.
-    ## ℹ This can happen when ggplot fails to infer the correct grouping structure in
-    ##   the data.
-    ## ℹ Did you forget to specify a `group` aesthetic or to convert a numerical
-    ##   variable into a factor?
-
-![](code_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
+![](code_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
 
 \#Reliability for Generalized Anxiety Subscale
 
@@ -611,7 +606,7 @@ EFA(list_dataset, vars=c("SCAS_1_0", "SCAS_3_0", "SCAS_4_0", "SCAS_20_0", "SCAS_
     ## Communality = Sum of Squared (SS) Factor Loadings
     ## (Uniqueness = 1 - Communality)
 
-![](code_files/figure-gfm/unnamed-chunk-13-1.png)<!-- -->
+![](code_files/figure-gfm/unnamed-chunk-14-1.png)<!-- -->
 
 # Exploratory Factor Analysis for Self-Compassion Subscale
 
@@ -664,4 +659,4 @@ EFA(list_dataset, vars=c("SCS_2_0", "SCS_3_0", "SCS_5_0", "SCS_6_0",
     ## Communality = Sum of Squared (SS) Factor Loadings
     ## (Uniqueness = 1 - Communality)
 
-![](code_files/figure-gfm/unnamed-chunk-14-1.png)<!-- -->
+![](code_files/figure-gfm/unnamed-chunk-15-1.png)<!-- -->
